@@ -4,12 +4,9 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
-  ScrollRestoration,
 } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner";
 
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -69,47 +66,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ABRA System" },
-      { name: "description", content: "Infraestrutura tecnológica de mobilidade urbana." },
-      { name: "author", content: "ABRA System" },
-      { property: "og:title", content: "ABRA System" },
-      { property: "og:description", content: "Infraestrutura tecnológica de mobilidade urbana." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "ABRA System" },
-      { name: "twitter:description", content: "Infraestrutura tecnológica de mobilidade urbana." },
-    ],
-    links: [
-      { rel: "icon", type: "image/jpeg", href: "/src/assets/abrasystem-logo.jpeg" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" },
-      { rel: "stylesheet", href: appCss },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -117,6 +77,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster />
     </QueryClientProvider>
   );
 }
