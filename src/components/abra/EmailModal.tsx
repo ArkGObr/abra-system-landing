@@ -6,10 +6,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { formatPhone } from "@/lib/utils";
 
 export function EmailModal({ trigger }: { trigger?: React.ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [phone, setPhone] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ export function EmailModal({ trigger }: { trigger?: React.ReactNode }) {
     const payload = {
       name: String(fd.get("name") || "").trim(),
       email: String(fd.get("email") || "").trim(),
+      phone: phone.trim() || null,
       message: `[${fd.get("_subject")}] ${fd.get("message")}`,
       segment: "Contato Direto",
     };
@@ -44,6 +47,7 @@ export function EmailModal({ trigger }: { trigger?: React.ReactNode }) {
           access_key: "24363ee5-6fe6-47a7-8a51-e1e1eef0f41f",
           name: payload.name,
           email: payload.email,
+          phone: payload.phone,
           subject: fd.get("_subject"),
           message: payload.message,
           from_name: "ABRA System Landing",
@@ -55,6 +59,7 @@ export function EmailModal({ trigger }: { trigger?: React.ReactNode }) {
       if (result.success) {
         toast.success("Mensagem enviada! Entraremos em contato o mais rápido possível.");
         setOpen(false);
+        setPhone("");
       } else {
         console.error("Erro Web3Forms:", result);
         toast.error("Erro ao enviar e-mail. Mas a mensagem foi salva no banco.");

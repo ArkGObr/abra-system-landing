@@ -3,12 +3,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2, Rocket, CheckCircle2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { formatPhone } from "@/lib/utils";
 
 const segments = ["Delivery", "Mototáxi", "Passageiros", "Utilitários", "Outro"];
 
 export function WaitlistForm() {
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [phone, setPhone] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ export function WaitlistForm() {
     const payload = {
       name: String(fd.get("name") || "").trim(),
       email: String(fd.get("email") || "").trim(),
-      phone: String(fd.get("phone") || "").trim() || null,
+      phone: phone.trim() || null,
       company: String(fd.get("company") || "").trim() || null,
       city: String(fd.get("city") || "").trim() || null,
       segment: String(fd.get("segment") || "").trim() || null,
@@ -65,7 +67,13 @@ export function WaitlistForm() {
     <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <Field name="name" label="Nome completo *" placeholder="Seu nome" required />
       <Field name="email" type="email" label="E-mail *" placeholder="voce@empresa.com" required />
-      <Field name="phone" label="Telefone / WhatsApp" placeholder="(00) 00000-0000" />
+      <Field 
+        name="phone" 
+        label="Telefone / WhatsApp" 
+        placeholder="(00) 00000-0000" 
+        value={phone}
+        onChange={(e) => setPhone(formatPhone(e.target.value))}
+      />
       <Field name="company" label="Empresa" placeholder="Sua operação" />
       <Field name="city" label="Cidade" placeholder="Cidade / UF" />
       <div className="flex flex-col gap-2">
@@ -108,8 +116,9 @@ export function WaitlistForm() {
   );
 }
 
-function Field({ name, label, type = "text", placeholder, required }: {
+function Field({ name, label, type = "text", placeholder, required, value, onChange }: {
   name: string; label: string; type?: string; placeholder?: string; required?: boolean;
+  value?: string; onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <div className="flex flex-col gap-2">
@@ -119,6 +128,8 @@ function Field({ name, label, type = "text", placeholder, required }: {
         type={type}
         required={required}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         className="h-12 rounded-md bg-surface/80 border border-input px-4 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-ring transition"
       />
     </div>
