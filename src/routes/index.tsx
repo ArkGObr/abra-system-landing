@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Nav } from "@/components/abra/Nav";
 import { Hero } from "@/components/abra/Hero";
@@ -23,6 +24,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    // Forçar o scroll para o topo ao carregar a página
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Nav />

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/abrasystem-logo.jpeg";
+import { EmailModal } from "./EmailModal";
 
 export function Nav() {
   return (
@@ -16,6 +17,11 @@ export function Nav() {
           <a href="#painel" className="hover:text-foreground transition-colors">Painel</a>
           <a href="#diferenciais" className="hover:text-foreground transition-colors">Diferenciais</a>
           <a href="#empresa" className="hover:text-foreground transition-colors">Empresa</a>
+          <EmailModal trigger={
+            <button className="hover:text-foreground transition-colors cursor-pointer">
+              Fale Conosco
+            </button>
+          } />
         </nav>
         <a
           href="#cadastro"
