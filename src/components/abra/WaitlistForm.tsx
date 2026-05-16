@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2, Rocket, CheckCircle2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const segments = ["Delivery", "Mototáxi", "Passageiros", "Utilitários", "Outro"];
 
@@ -69,14 +70,16 @@ export function WaitlistForm() {
       <Field name="city" label="Cidade" placeholder="Cidade / UF" />
       <div className="flex flex-col gap-2">
         <label className="text-xs uppercase tracking-wider text-muted-foreground">Segmento</label>
-        <select
-          name="segment"
-          defaultValue=""
-          className="h-12 rounded-md bg-surface/80 border border-input px-4 text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
-        >
-          <option value="" disabled>Selecione</option>
-          {segments.map((s) => <option key={s} value={s}>{s}</option>)}
-        </select>
+        <Select name="segment">
+          <SelectTrigger className="h-12 bg-surface/80 border-input focus:ring-ring">
+            <SelectValue placeholder="Selecione" />
+          </SelectTrigger>
+          <SelectContent>
+            {segments.map((s) => (
+              <SelectItem key={s} value={s}>{s}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="md:col-span-2 flex flex-col gap-2">
         <label className="text-xs uppercase tracking-wider text-muted-foreground">Mensagem (opcional)</label>
