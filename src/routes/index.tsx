@@ -24,8 +24,8 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useEffect(() => {
-    // Forçar o scroll para o topo ao carregar a página
-    window.scrollTo(0, 0);
+    // Forçar o scroll para o topo de forma instantânea ao carregar a página
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
   return (
