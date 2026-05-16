@@ -39,6 +39,7 @@
 }
 
 :root {
+  color-scheme: dark;
   --radius: 0.75rem;
 
   /* ABRA System palette */
@@ -98,7 +99,7 @@
   }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
 
-  /* Fix autofill background */
+  /* Fix autofill background in all states (Focus, Hover, Preview) */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -107,10 +108,27 @@
   textarea:-webkit-autofill:focus,
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--color-foreground);
-    -webkit-box-shadow: 0 0 0px 1000px var(--color-surface) inset;
-    transition: background-color 5000s ease-in-out 0s;
+  select:-webkit-autofill:focus,
+  input:autofill,
+  input:autofill:hover,
+  input:autofill:focus,
+  textarea:autofill,
+  textarea:autofill:hover,
+  textarea:autofill:focus,
+  select:autofill,
+  select:autofill:hover,
+  select:autofill:focus {
+    -webkit-text-fill-color: var(--color-foreground) !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset !important;
+    box-shadow: 0 0 0 1000px var(--color-surface) inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+    color-scheme: dark !important;
+  }
+
+  input, textarea, select {
+    outline: none !important;
+    border-inline-start-style: none !important;
+    border-left-style: solid !important;
   }
 }
 
