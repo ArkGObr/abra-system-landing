@@ -7,18 +7,44 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
+import { supabase } from "@/integrations/supabase/client";
+
 function EmailModal() {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onSubmit = () => {
-    // Não damos e.preventDefault() para que o form seja submetido para o iframe
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      name: String(fd.get("name") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      message: `[${fd.get("_subject")}] ${fd.get("message")}`,
+      segment: "Contato Direto",
+    };
+
+    if (!payload.name || !payload.email) {
+      toast.error("Preencha seu nome e e-mail.");
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.from("waitlist").insert(payload);
+      
+      if (!error) {
+        toast.success("Mensagem recebida! Nossa equipe entrará em contato.");
+        setOpen(false);
+      } else {
+        console.error("Erro Supabase:", error);
+        toast.error("Erro ao enviar mensagem. Tente novamente.");
+      }
+    } catch (err) {
+      console.error("Erro técnico:", err);
+      toast.error("Erro de conexão.");
+    } finally {
       setLoading(false);
-      setOpen(false);
-      toast.success("Mensagem enviada com sucesso!");
-    }, 2000);
+    }
   };
 
   return (
@@ -26,7 +52,7 @@ function EmailModal() {
       <DialogTrigger asChild>
         <button 
           className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 cursor-pointer"
-          title="Email: urbgodelivery@gmail.com"
+          title="Email: abrasystembrasil@gmail.com"
         >
           <Mail className="w-5 h-5" />
         </button>
@@ -39,12 +65,7 @@ function EmailModal() {
           </DialogDescription>
         </DialogHeader>
         
-        <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: "none" }} />
-        
         <form 
-          action="https://formsubmit.co/urbgodelivery@gmail.com" 
-          method="POST" 
-          target="hidden_iframe"
           onSubmit={onSubmit}
           className="flex flex-col gap-4 mt-2"
         >
