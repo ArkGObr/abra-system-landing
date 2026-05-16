@@ -53,7 +53,7 @@ export function EmailModal({ trigger }: { trigger?: React.ReactNode }) {
       const result = await response.json();
 
       if (result.success) {
-        toast.success("Mensagem enviada com sucesso! Verifique seu e-mail.");
+        toast.success("Mensagem enviada! Entraremos em contato o mais rápido possível.");
         setOpen(false);
       } else {
         console.error("Erro Web3Forms:", result);
