@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "ABRA System" },
+      { name: "twitter:description", content: "Infraestrutura tecnológica de mobilidade urbana." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ef0f8370-6ca8-4777-ac45-c6704c048f4a/id-preview-2068f816--a41527d0-7f99-4500-b747-693b51a212c2.lovable.app-1778936298153.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ef0f8370-6ca8-4777-ac45-c6704c048f4a/id-preview-2068f816--a41527d0-7f99-4500-b747-693b51a212c2.lovable.app-1778936298153.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
