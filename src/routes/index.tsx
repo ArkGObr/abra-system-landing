@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Nav } from "@/components/abra/Nav";
 import { Hero } from "@/components/abra/Hero";
 import { Features } from "@/components/abra/Features";
