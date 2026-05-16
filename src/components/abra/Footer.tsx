@@ -26,7 +26,7 @@ function EmailModal() {
       <DialogTrigger asChild>
         <button 
           className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 cursor-pointer"
-          title="Email: abrasystembrasil@gmail.com"
+          title="Email: urbgodelivery@gmail.com"
         >
           <Mail className="w-5 h-5" />
         </button>
@@ -42,7 +42,7 @@ function EmailModal() {
         <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: "none" }} />
         
         <form 
-          action="https://formsubmit.co/abrasystembrasil@gmail.com" 
+          action="https://formsubmit.co/urbgodelivery@gmail.com" 
           method="POST" 
           target="hidden_iframe"
           onSubmit={onSubmit}
