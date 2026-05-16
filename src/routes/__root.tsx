@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
@@ -104,6 +105,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
