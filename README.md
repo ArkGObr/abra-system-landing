@@ -1,2 +1,1 @@
-# AbraSystem.
-
+# AbraSystem
