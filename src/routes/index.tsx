@@ -23,9 +23,36 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  useEffect(() => {
-    // Forçar o scroll para o topo de forma instantânea ao carregar a página
-    window.scrollTo({ top: 0, behavior: "auto" });
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Bloquear a restauração nativa
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    // Desabilitar temporariamente o scroll suave para o reset inicial ser absoluto e sem saltos
+    const originalStyle = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+
+    const forceTop = () => {
+      window.scrollTo(0, 0);
+    };
+
+    // Primeira tentativa imediata
+    forceTop();
+
+    // Vencer o comportamento do browser de pular para o ID da URL (#plataforma por ex)
+    const timers = [
+      setTimeout(forceTop, 0),
+      setTimeout(forceTop, 50),
+      setTimeout(forceTop, 150),
+      setTimeout(() => {
+        document.documentElement.style.scrollBehavior = originalStyle;
+      }, 200),
+    ];
+
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
