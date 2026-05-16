@@ -1,3 +1,5 @@
+import { Instagram } from "lucide-react";
+
 export function About() {
   return (
     <section id="empresa" className="relative py-24 md:py-32">
@@ -31,9 +33,21 @@ export function About() {
             <h3 className="mt-4 text-2xl md:text-3xl font-semibold text-foreground">
               Carlos André Gomes
             </h3>
-            <p className="mt-2 text-sm text-gradient-gold font-medium tracking-wide">
-              O "Rei do Delivery"
-            </p>
+            <div className="mt-2 flex items-center gap-3">
+              <p className="text-sm text-gradient-gold font-medium tracking-wide">
+                O "Rei do Delivery"
+              </p>
+              <a 
+                href="https://www.instagram.com/oreidodeliverybr?igsh=MWR4bXVkdWt4bHpoZA==" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5"
+                title="Instagram @oreidodeliverybr"
+              >
+                <Instagram className="w-4 h-4" />
+                <span className="text-xs font-medium">Siga no Instagram</span>
+              </a>
+            </div>
             
             <div className="mt-6 space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
               <p>
@@ -42,7 +56,7 @@ export function About() {
                 sua trajetória atuando diretamente em operações reais de mobilidade em 9 estados brasileiros.
               </p>
               <p>
-                Ao longo de sua trajetória, foi responsável por <strong className="text-foreground font-medium">mais de 1,5 milhão de serviços realizados</strong>, 
+                Ao longo de sua trajetória, foi responsável por <strong className="text-foreground font-medium">mais de 1,5 milhão de services realizados</strong>, 
                 desenvolvendo expertise na gestão de operações de delivery, mototáxi, transporte de passageiros e logística urbana.
               </p>
               <p>

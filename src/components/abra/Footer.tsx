@@ -42,6 +42,15 @@ export function Footer() {
             >
               <Instagram className="w-5 h-5" />
             </a>
+            <a 
+              href="https://www.instagram.com/oreidodeliverybr?igsh=MWR4bXVkdWt4bHpoZA==" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+              title="Instagram: @oreidodeliverybr (Fundador)"
+            >
+              <Instagram className="w-5 h-5 text-primary/70" />
+            </a>
             <EmailModal />
           </div>
         </div>
